@@ -9,7 +9,7 @@ async def fetch(url, session):
     async with session.get(url) as response:
         resp = await response.read()
         elapsed = default_timer() - fetch.start_time[url]
-        print(f'{url:30}{elapsed:.2f}{asterisks(elapsed)}')
+        print(f'{url:30} {elapsed:.2f} {asterisks(elapsed)}')
         return resp
 
 
@@ -31,7 +31,8 @@ def demo_async(urls):
     loop.run_until_complete(future)
 
     total_elapsed = default_timer() - start_time
-    print(f'WITH ASYNCIO: {total_elapsed} {asterisks(total_elapsed)}')
+    print(f'WITH ASYNCIO: {total_elapsed:.2f} {asterisks(total_elapsed)}')
+
 
 def demo_sequential(urls):
     start_time = default_timer()
@@ -41,7 +42,7 @@ def demo_sequential(urls):
         elapsed = default_timer() - start_time_url
         print(f'{url:30} {elapsed:.2f}secs {asterisks(elapsed)}')
     total_elapsed = default_timer() - start_time
-    print(f'TOTAL SECONDS: {total_elapsed} {asterisks(total_elapsed)}')
+    print(f'TOTAL SECONDS: {total_elapsed:.2f} {asterisks(total_elapsed)}')
 
 
 def asterisks(num):
@@ -56,6 +57,6 @@ if __name__ == '__main__':
         'https://microsoft.com',
         'https://yahoo.com',
     ]
-demo_sequential(URL_LIST)
-print('\n')
-demo_async(URL_LIST)
+    demo_sequential(URL_LIST)
+    print('')
+    demo_async(URL_LIST)
